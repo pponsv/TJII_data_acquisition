@@ -1,14 +1,16 @@
-MAIN = ./src/tjii_data_acquisition.f90
 MODNAME = TJII_data_acquisition_f
 
-all: $(MAIN)
-	python3 -m numpy.f2py -c --f90flags='-Wno-tabs -lRpcC' -L./lib/ -m $(MODNAME) $(MAIN) ./lib/libRpcC.a
+all: meson_configure meson_build
 
-pyc: $(MAIN)
-	python3 -m numpy.f2py -h tmp.pyf -m $(MODNAME) $(MAIN)
+meson_configure:
+	meson setup --wipe bld
+
+meson_build:
+	meson compile -C bld
+	cp bld/$(MODNAME).*.so ./
 
 clean:
-	rm -f *.so
+	rm -rf *.so ./bld/
 
 test:
 	python3 test.py
