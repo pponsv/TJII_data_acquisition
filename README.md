@@ -1,8 +1,8 @@
 Installation:
 
-`pip install meson`
+`pip install meson ninja`
 
-`sudo apt install gfortran`
+`sudo apt install gfortran build-essential`
 
 Uso:
 
